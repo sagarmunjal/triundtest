@@ -1,0 +1,6 @@
+#ignore all files in the node_modules
+node_modules/
+
+
+#ignore all files in the bowercomponents
+bower_components/
