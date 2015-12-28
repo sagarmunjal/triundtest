@@ -2,16 +2,29 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var path = require('path');
+var consolidate = require('consolidate');
 
 var app = express();
 
+// Set swig as the template engine
+app.engine('server.view.html', consolidate['swig']);
+
+// Set views path and view engine
+app.set('view engine', 'server.view.html');
+app.set('views', './');
+
 app.use('/',express.static(__dirname + '/app'));
+
+app.route('/*').get(function (req, res) {
+  res.render('app/index');
+});
 
 // app.get('/',function(){
 //     console.log("hi");
 //     res.render('./public/index.html');
 // })
-var server = app.listen(process.env.OPENSHIFT_NODEJS_PORT || 8080,
+var server = app.listen(process.env.OPENSHIFT_NODEJS_PORT || 8000,
 process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
  function () {
 

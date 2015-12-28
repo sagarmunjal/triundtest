@@ -3,4 +3,5 @@ node_modules/
 
 
 #ignore all files in the bowercomponents
+app/bower_components/
 bower_components/

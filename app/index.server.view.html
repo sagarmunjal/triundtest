@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" >
-  <head>
+<head>
+<base href="/">
     <title>Triund-December-trekking-via-Dharamshala-Mcloedganj</title>
 
     <meta charset="utf-8">
@@ -34,19 +35,14 @@
     </md-toolbar>
 
     <md-list>
-
-      <md-list-item>
-        <a href="#triund"><md-button><md-icon md-svg-icon="menu" ></md-icon>triund</md-button></a>
-      </md-list-item>
-      <md-list-item>
-        <a href="#triundmap"><md-button><md-icon md-svg-icon="menu" ></md-icon>triundMap</md-button></a>
-      </md-list-item>
       <md-list-item >
-          <md-button ui-sref="place.travelogue" ng-class="{'selected' : it === ul.selected }">
+          <md-button ui-sref="place.travelogue">
             <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
             Travelog
           </md-button>
-          <md-button ui-sref="place.map" ng-class="{'selected' : it === ul.selected }">
+      </md-list-item>
+      <md-list-item>
+          <md-button ui-sref="place.map">
             <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
             Map
           </md-button>
@@ -85,21 +81,23 @@
 
           angular
               .module('starterApp', ['ngMaterial', 'ngRoute', 'users', 'triund','ui.router'])
-              .config(function($mdThemingProvider, $mdIconProvider, $stateProvider){
+              .config(function($mdThemingProvider, $mdIconProvider, $stateProvider,$locationProvider){
+                $locationProvider.html5Mode(true).hashPrefix('!');
+
                 $stateProvider
                 .state('place',{
                   url: '/',
-                  templateUrl : '',
+                  template : '<ui-view/>',
                   abstract:true
                 })
                 .state('place.travelogue',{
-                  url: '/travelogue',
+                  url: '^/travelogue',
                   templateUrl: './src/users/view/travelogue.place.view.html'
                 })
-                .state('plave.map',{
-                  url: '/map',
-                  templateUrl: ''
-                })
+                .state('place.map',{
+                  url: '^/map',
+                  templateUrl: './src/users/view/map.place.view.html'
+                });
                   $mdIconProvider
                       .defaultIconSet("./assets/svg/avatars.svg", 128)
                       .icon("menu"       , "./assets/svg/menu.svg"        , 24)
